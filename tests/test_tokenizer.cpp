@@ -10,8 +10,7 @@ TEST_CASE("Test tokenizer") {
 	std::string input = 
 		"begin\n"
 		"	var a = 1;\n"
-		"	const b = 1\n"
-		"	print(a+b);\n"
+		"	print(a);\n"
 		"end\n";
 	std::stringstream ss;
 	ss.str(input);

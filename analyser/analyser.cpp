@@ -231,16 +231,16 @@ namespace miniplc0 {
 		
 		//判断范围
 		std::string tmp = next.value().GetValueString();
-		unsigned int max = 0xffffffff - 1;
-		int sum = 0;                   
+		long long max = 0x7fffffff;
+		long long sum = 0;                   
 		for(std::string::iterator it = tmp.begin(); it != tmp.end(); it++) {
-			sum = 10*sum + (*it - '0');
-			if(sum > max)
+			if (sum > max)
 				return std::make_optional<CompilationError>(_current_pos, ErrorCode::ErrIntegerOverflow);
+			sum = 10*sum + (long long)(*it - '0');
 		}
 		if(sum > max)
 			return std::make_optional<CompilationError>(_current_pos, ErrorCode::ErrIntegerOverflow);
-		out = prefix * (unsigned int)sum;
+		out = prefix * (int32_t)sum;
 		return {};
 	}
 
@@ -432,17 +432,17 @@ namespace miniplc0 {
 			}
 			case UNSIGNED_INTEGER: {
 				std::string tmp = next.value().GetValueString();
-				int sum = 0;
-				unsigned int  max = 0xffffffff - 1;
+				long long sum = 0;
+				long long  max = 0x7fffffff;
 				for(std::string::iterator it = tmp.begin(); it != tmp.end(); it++)
 				{
 					if(sum > max)
 						return std::make_optional<CompilationError>(_current_pos, ErrorCode::ErrIntegerOverflow);
-					sum = 10 * sum + (*it - '0');
+					sum = 10 * sum + (long long)(*it - '0');
 				}
 				if (sum > max)
 					return std::make_optional<CompilationError>(_current_pos, ErrorCode::ErrIntegerOverflow);
-				_instructions.emplace_back(LIT, sum);
+				_instructions.emplace_back(LIT, (int32_t)sum);
 				break;
 			}
 			case LEFT_BRACKET: {

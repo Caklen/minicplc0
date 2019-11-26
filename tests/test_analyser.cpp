@@ -16,10 +16,10 @@ TEST_CASE("Test analizer") {
 	"SUB", "MUL", "DIV", "WRT" };
 	std::string input =
 		"begin\n"
-		"const b = 2;\n"
+		"const b = 1;\n"
 		"var a;\n"
-		"var c  = 15;"
-		"a = b + 1;\n"
+		"a = 4294967295;"
+		"print(a+b*5);\n"
 		"end\n";
 	std::stringstream ss;
 	ss.str(input);
